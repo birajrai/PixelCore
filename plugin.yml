@@ -1,0 +1,33 @@
+name: PixelCore
+main: io.github.birajrai.PixelCore
+version: 1.0
+description: A core plugin made for iHalloween
+author: Biraj Rai
+
+commands:
+  i:
+    description: Give a player an item.
+    usage: /i <itemname> [amount]
+    aliases:
+      - giveitem
+      - item
+    permission: pixelcore.admin.item
+  feed:
+    description: Fill the hunger bar of a player.
+    usage: /feed [playername]
+    permission: pixelcore.admin.feed
+  fly:
+    description: Allow a player to fly.
+    usage: /fly [playername]
+    permission: pixelcore.admin.fly
+
+permissions:
+  pixelcore.itemcommand:
+    description: Allows the player to use the /i command.
+    default: op
+  pixelcore.feed:
+    description: Allows the player to use the /feed command.
+    default: op
+  pixelcore.fly:
+    description: Allows the player to use the /fly command.
+    default: op
