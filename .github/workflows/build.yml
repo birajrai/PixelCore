@@ -19,8 +19,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Build with Maven
-        run: mvn clean package
+      - name: Build with Eclipse
+        run: |
+          mkdir -p build
+          cp -R src build/
+          cp -R libs build/
+          javac -d build -sourcepath src -classpath libs/* src/io/github/birajrai/*.java
 
       - name: Export JAR file
-        run: cp target/PixelCore.jar build/PixelCore.jar
+        run: jar cvf build/PixelCore.jar -C build .
