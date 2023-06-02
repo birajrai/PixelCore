@@ -4,30 +4,44 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemCommand implements CommandExecutor {
+	private final FileConfiguration config;
+	private final FileConfiguration messages;
+
+	public ItemCommand(FileConfiguration config, FileConfiguration messages) {
+		this.config = config;
+		this.messages = messages;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		// Check if the sender is a player
-		if (!(sender instanceof Player)) {
-			sender.sendMessage("This command can only be used by players.");
+		// Check if the command is enabled in the configuration
+		if (!config.getBoolean("item-command.enabled", true)) {
+			sender.sendMessage(messages.getString("item-command.disabled"));
 			return true;
 		}
 
-		// Check if the player has permission to use this command
+		// Check if the sender is a player
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(messages.getString("item-command.only-player"));
+			return true;
+		}
+
+		// Check if the player has permission to use the command
 		if (!sender.hasPermission("pixelcore.itemcommand")) {
-			sender.sendMessage("You do not have permission to use this command.");
+			sender.sendMessage(messages.getString("no-permission"));
 			return true;
 		}
 
 		Player player = (Player) sender;
 
 		if (args.length < 1) {
-			player.sendMessage("Usage: /i <itemname> [amount]");
+			player.sendMessage(messages.getString("item-command.usage"));
 			return true;
 		}
 
@@ -35,7 +49,7 @@ public class ItemCommand implements CommandExecutor {
 		Material material = Material.getMaterial(itemName);
 
 		if (material == null) {
-			player.sendMessage("Invalid item name.");
+			player.sendMessage(messages.getString("item-command.invalid-item-name"));
 			return true;
 		}
 
@@ -44,11 +58,11 @@ public class ItemCommand implements CommandExecutor {
 			try {
 				amount = Integer.parseInt(args[1]);
 				if (amount <= 0 || amount > 64) {
-					player.sendMessage("Amount must be between 1 and 64.");
+					player.sendMessage(messages.getString("item-command.invalid-amount"));
 					return true;
 				}
 			} catch (NumberFormatException e) {
-				player.sendMessage("Invalid amount.");
+				player.sendMessage(messages.getString("item-command.invalid-amount"));
 				return true;
 			}
 		}
@@ -59,7 +73,8 @@ public class ItemCommand implements CommandExecutor {
 		item.setItemMeta(meta);
 
 		player.getInventory().addItem(item);
-		player.sendMessage("You have been given " + amount + " " + itemName + "(s).");
+		player.sendMessage(messages.getString("item-command.item-given").replace("%amount%", String.valueOf(amount))
+				.replace("%item%", itemName));
 
 		return true;
 	}

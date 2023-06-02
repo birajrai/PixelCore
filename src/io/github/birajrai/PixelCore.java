@@ -1,5 +1,9 @@
 package io.github.birajrai;
 
+import java.io.File;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.birajrai.commands.admin.FeedCommand;
@@ -8,20 +12,36 @@ import io.github.birajrai.commands.admin.ItemCommand;
 
 public class PixelCore extends JavaPlugin {
 
+	private FileConfiguration config;
+	private FileConfiguration messages;
+
 	@Override
 	public void onEnable() {
-		// Register the commands
-		getCommand("i").setExecutor(new ItemCommand());
-		getCommand("feed").setExecutor(new FeedCommand());
-		getCommand("fly").setExecutor(new FlyCommand(this));
+		// Load config.yml and messages.yml
+		loadConfig();
 
-		// Log a message to the console
-		getLogger().info("PixelCore has been enabled!");
+		// Register commands
+		registerCommands();
 	}
 
-	@Override
-	public void onDisable() {
-		// Log a message to the console
-		getLogger().info("PixelCore has been disabled!");
+	private void loadConfig() {
+		// Load config.yml
+		getConfig().options().copyDefaults(true);
+		saveDefaultConfig();
+		config = getConfig();
+
+		// Load messages.yml
+		File messagesFile = new File(getDataFolder(), "messages.yml");
+		if (!messagesFile.exists()) {
+			saveResource("messages.yml", false);
+		}
+		messages = YamlConfiguration.loadConfiguration(messagesFile);
+	}
+
+	private void registerCommands() {
+		// Register the commands with their respective executors
+		getCommand("feed").setExecutor(new FeedCommand(config, messages));
+		getCommand("fly").setExecutor(new FlyCommand(config, messages));
+		getCommand("i").setExecutor(new ItemCommand(config, messages));
 	}
 }

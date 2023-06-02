@@ -4,24 +4,39 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class FeedCommand implements CommandExecutor {
 
+	private final FileConfiguration config;
+	private final FileConfiguration messages;
+
+	public FeedCommand(FileConfiguration config, FileConfiguration messages) {
+		this.config = config;
+		this.messages = messages;
+	}
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		// Check if the command is enabled in the configuration
+		if (!config.getBoolean("feed-command.enabled", true)) {
+			sender.sendMessage(messages.getString("feed-command.disabled"));
+			return true;
+		}
+
 		// Check if the command was run by a player or console
 		if (sender instanceof Player) {
 			// If the command was run by a player, check if they have permission to use the
 			// command
 			if (!sender.hasPermission("pixelcore.feed")) {
-				sender.sendMessage("You do not have permission to use this command.");
+				sender.sendMessage(messages.getString("no-permission"));
 				return true;
 			}
 		} else {
 			// If the command was run by console, check if a player was specified
 			if (args.length < 1) {
-				sender.sendMessage("Usage: /feed <playername>");
+				sender.sendMessage(messages.getString("invalid-usage"));
 				return true;
 			}
 		}
@@ -30,7 +45,7 @@ public class FeedCommand implements CommandExecutor {
 		if (args.length < 1) {
 			// If no player was specified, feed the sender
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("You must be a player to use this command without a playername.");
+				sender.sendMessage(messages.getString("feed-command.only-player"));
 				return true;
 			}
 
@@ -40,7 +55,7 @@ public class FeedCommand implements CommandExecutor {
 			player = Bukkit.getPlayer(args[0]);
 
 			if (player == null) {
-				sender.sendMessage("Player not found.");
+				sender.sendMessage(messages.getString("player-not-found"));
 				return true;
 			}
 		}
@@ -49,10 +64,10 @@ public class FeedCommand implements CommandExecutor {
 		player.setSaturation(10f);
 
 		if (player == sender) {
-			player.sendMessage("You have been feed.");
+			player.sendMessage(messages.getString("self-fed"));
 		} else {
-			sender.sendMessage("You have feed " + player.getName() + ".");
-			player.sendMessage("You have been feed by " + sender.getName() + ".");
+			sender.sendMessage(messages.getString("sender-fed").replace("%player%", player.getName()));
+			player.sendMessage(messages.getString("player-fed").replace("%sender%", sender.getName()));
 		}
 
 		return true;
