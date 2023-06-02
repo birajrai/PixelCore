@@ -1,0 +1,7 @@
+commands:
+  feed:
+    enabled: true
+  fly:
+    enabled: true
+  item-command:
+    enabled: true

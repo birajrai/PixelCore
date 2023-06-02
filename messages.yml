@@ -1,0 +1,23 @@
+no-permission: "&cYou do not have permission to use this command."
+invalid-usage: "&cInvalid command usage. Usage: /feed [player]"
+player-only-command: "&cThis command can only be used by players."
+player-not-found: "&cPlayer not found."
+self-fed: "&aYou have been fed."
+sender-fed: "&aYou have fed %player%."
+player-fed: "&aYou have been fed by %sender%."
+
+fly-command:
+  enabled-message: "&aFlight mode enabled."
+  disabled-message: "&aFlight mode disabled."
+  only-player: "&cThis command can only be used by players."
+  disabled: "&cThe fly command is disabled."
+
+item-command:
+  enabled: "&aThe item command is enabled."
+  disabled: "&cThe item command is disabled."
+  only-player: "&cThis command can only be used by players."
+  no-permission: "&cYou do not have permission to use this command."
+  usage: "&cInvalid command usage. Usage: /i <item> [amount]"
+  invalid-item-name: "&cInvalid item name."
+  invalid-amount: "&cInvalid amount. Amount must be a positive integer up to 64."
+  item-given: "&aYou have been given %amount% of %item%."
