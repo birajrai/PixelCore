@@ -15,15 +15,6 @@ public class PixelCore extends JavaPlugin {
 	private FileConfiguration config;
 	private FileConfiguration messages;
 
-	@Override
-	public void onEnable() {
-		// Load config.yml and messages.yml
-		loadConfig();
-
-		// Register commands
-		registerCommands();
-	}
-
 	private void loadConfig() {
 		// Load config.yml
 		getConfig().options().copyDefaults(true);
@@ -36,6 +27,15 @@ public class PixelCore extends JavaPlugin {
 			saveResource("messages.yml", false);
 		}
 		messages = YamlConfiguration.loadConfiguration(messagesFile);
+	}
+
+	@Override
+	public void onEnable() {
+		// Load config.yml and messages.yml
+		loadConfig();
+
+		// Register commands
+		registerCommands();
 	}
 
 	private void registerCommands() {
