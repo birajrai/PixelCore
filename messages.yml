@@ -1,23 +1,44 @@
+# Messages file for PixelCore plugin
+
 no-permission: "&cYou do not have permission to use this command."
-invalid-usage: "&cInvalid command usage. Usage: /feed [player]"
-player-only-command: "&cThis command can only be used by players."
+invalid-usage: "&cInvalid usage. Please specify a player."
 player-not-found: "&cPlayer not found."
 self-fed: "&aYou have been fed."
-sender-fed: "&aYou have fed %player%."
-player-fed: "&aYou have been fed by %sender%."
+feed-command:
+  disabled: "&cThe feed command is currently disabled."
+  only-player: "&cThis command can only be used by players."
+  self-fed: "&aYou have been fed."
+  sender-fed: "&aYou have fed %player%."
+  player-fed: "&aYou have been fed by %sender%."
 
 fly-command:
-  enabled-message: "&aFlight mode enabled."
-  disabled-message: "&aFlight mode disabled."
+  disabled: "&cThe fly command is currently disabled."
   only-player: "&cThis command can only be used by players."
-  disabled: "&cThe fly command is disabled."
+  enabled-message: "&aFly mode has been enabled."
+  disabled-message: "&aFly mode has been disabled."
 
 item-command:
-  enabled: "&aThe item command is enabled."
-  disabled: "&cThe item command is disabled."
+  disabled: "&cThe item command is currently disabled."
   only-player: "&cThis command can only be used by players."
-  no-permission: "&cYou do not have permission to use this command."
-  usage: "&cInvalid command usage. Usage: /i <item> [amount]"
+  usage: "&cUsage: /item <item> [amount]"
   invalid-item-name: "&cInvalid item name."
-  invalid-amount: "&cInvalid amount. Amount must be a positive integer up to 64."
+  invalid-amount: "&cInvalid amount. Please provide a number between 1 and 64."
   item-given: "&aYou have been given %amount% of %item%."
+
+setspawn-command:
+  disabled: "&cThe setspawn command is currently disabled."
+  only-player: "&cThis command can only be used by players."
+  spawn-set: "&aSpawn location has been set."
+
+spawn-command:
+  disabled: "&cThe spawn command is currently disabled."
+  teleporting: "&aTeleporting to spawn..."
+
+skin-command:
+  disabled: "&cThe skin command is currently disabled."
+  only-player: "&cThis command can only be used by players."
+  invalid-usage: "&cInvalid command usage. Please use the correct format."
+  invalid-player: "&cInvalid player name."
+  invalid-url: "&cInvalid URL."
+  skin-changed: "&aYour skin has been changed."
+  skin-set: "&aSkin has been set for %player%."

@@ -1,33 +1,48 @@
 name: PixelCore
+version: 1.0.0
+description: A plugin for essential commands and features.
+author: Neppixel
 main: io.github.birajrai.PixelCore
-version: 1.0
-description: A core plugin made for iHalloween
-author: Biraj Rai
 
 commands:
-  i:
-    description: Give a player an item.
-    usage: /i <itemname> [amount]
-    aliases:
-      - giveitem
-      - item
-    permission: pixelcore.admin.item
-  feed:
-    description: Fill the hunger bar of a player.
-    usage: /feed [playername]
-    permission: pixelcore.admin.feed
   fly:
-    description: Allow a player to fly.
-    usage: /fly [playername]
+    description: Toggle fly mode.
+    usage: /fly
     permission: pixelcore.admin.fly
+  item:
+    description: Give an item to a player.
+    usage: /item <item> [amount]
+    permission: pixelcore.admin.item
+  setspawn:
+    description: Set the spawn location.
+    usage: /setspawn
+    permission: pixelcore.admin.setspawn
+  spawn:
+    description: Teleport to the spawn location.
+    usage: /spawn
+  skin:
+    description: Change player skin.
+    usage: /skin [player] or /skin url [url]
+    permission: pixelcore.admin.skin
+  feed:
+    description: Feed a player.
+    usage: /feed [player]
+    permission: pixelcore.admin.feed
 
 permissions:
-  pixelcore.itemcommand:
-    description: Allows the player to use the /i command.
+  pixelcore.admin.fly:
+    description: Allows the use of the fly command.
     default: op
-  pixelcore.feed:
-    description: Allows the player to use the /feed command.
+  pixelcore.admin.item:
+    description: Allows the use of the item command.
     default: op
-  pixelcore.fly:
-    description: Allows the player to use the /fly command.
+  pixelcore.admin.setspawn:
+    description: Allows the use of the setspawn command.
     default: op
+  pixelcore.admin.skin:
+    description: Allows the use of the skin command.
+    default: op
+  pixelcore.admin.feed:
+    description: Allows the use of the feed command.
+    default: op
+    

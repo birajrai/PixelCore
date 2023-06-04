@@ -1,7 +1,20 @@
-commands:
-  feed:
-    enabled: true
-  fly:
-    enabled: true
-  item-command:
-    enabled: true
+# Configuration file for PixelCore plugin
+
+feed-command:
+  enabled: true
+
+fly-command:
+  enabled: true
+
+item-command:
+  enabled: true
+
+setspawn-command:
+  enabled: true
+
+spawn-command:
+  enabled: true
+
+skin-command:
+  enabled: true
+  skin-provider: NameMc
